@@ -1,0 +1,60 @@
+{
+  "clinica":[
+    {
+      "nombre": "AMBULANCIAS DORADA SAS",
+      "nit": "901766207",
+      "codigo": "1738003330"
+    }
+  ],
+  "servicios": [
+  ],
+  "consultas":[
+  ],
+  "diagnosticos":[
+  ],
+  "tecnologia":[
+    {
+      "codigo": "601T01",
+      "nombre": "TRASLADO ASISTENCIAL BASICO TERRESTRE PRIMARIO"
+    },
+    {
+      "codigo": "601T02",
+      "nombre": "TRASLADO ASISTENCIAL BÁSICO TERRESTRE SECUNDARIO"
+    },
+    {
+      "codigo": "602T01",
+      "nombre": "TRASLADO ASISTENCIAL MEDICALIZADO TERRESTRE PRIMARIO"
+    },
+    {
+      "codigo": "602T02",
+      "nombre": "TRASLADO ASISTENCIAL MEDICALIZADO TERRESTRE SECUNDARIO"
+    },
+    {
+      "codigo": "602T01",
+      "nombre": "TRASLADO NEONATAL MEDICALIZADO"
+    }
+  ],
+  "personal":[
+    {
+      "tipoDocumento": "CC",
+      "documento": "1056768448",
+      "nombre": "JORGE LUIS VELASQUEZ ZAPATA",
+      "cargo": "AUXILIAR DE ENFERMERIA",
+      "codigo": 1
+    },
+    {
+      "tipoDocumento": "CC",
+      "documento": "1014292256",
+      "nombre": "HEIDY YULIETH MOSQUERA PEREZ",
+      "cargo": "AUXILIAR DE ENFERMERIA",
+      "codigo": 2
+    },
+    {
+      "tipoDocumento": "CC",
+      "documento": "1054568718",
+      "nombre": "DAYANA PAOLA HERRERA LOAIZA",
+      "cargo": "AUXILIAR DE ENFERMERIA",
+      "codigo": 3
+    }
+  ]
+}
