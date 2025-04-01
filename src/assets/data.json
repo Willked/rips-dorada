@@ -55,6 +55,20 @@
       "nombre": "DAYANA PAOLA HERRERA LOAIZA",
       "cargo": "AUXILIAR DE ENFERMERIA",
       "codigo": 3
+    },
+    {
+      "tipoDocumento": "CC",
+      "documento": "1054549489",
+      "nombre": "YANETH OLAYA",
+      "cargo": "AUXILIAR DE ENFERMERIA",
+      "codigo": 4
+    },
+    {
+      "tipoDocumento": "CC",
+      "documento": "1128624017",
+      "nombre": "KAREN GALVIS",
+      "cargo": "AUXILIAR DE ENFERMERIA",
+      "codigo": 5
     }
   ]
 }
