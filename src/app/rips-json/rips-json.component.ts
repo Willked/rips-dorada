@@ -88,15 +88,47 @@ export class RipsJsonComponent implements OnInit {
       return;
     }
 
-    this.createJsonTransaccion();
-    this.createUsersJson();
-    this.createServices();
+    // this.createJsonTransaccion();
+    // this.createUsersJson();
+    // this.createServices();
+    this.temporaryMethode();
 
     this.downloadRequestObject();
   }
 
+  temporaryMethode(): void{
+    this.numeroFactura = this.form.value.numFactura;
+    const newValue = {
+        "numDocumentoIdObligado": this.datosClinica[0].nit,
+        "numFactura": this.form.value.numFactura,
+        "tipoNota": this.form.value.tipoNota != "null" ? this.form.value.tipoNota : null,
+        "numNota": this.form.value.numNota != "" ? this.form.value.numNota : null,
+        "usuarios": [
+          {
+          "tipoDocumentoIdentificacion": this.form.value.tipoDocumento,
+          "numDocumentoIdentificacion": this.form.value.numDocumento,
+          "consecutivo": 1,
+          "tipoUsuario": this.form.value.tipoUsuario,
+          "fechaNacimiento": this.form.value.fecNacimiento,
+          "codSexo": this.form.value.sexo,
+          "codPaisResidencia": "170",
+          "codMunicipioResidencia": this.form.value.municipio,
+          "codZonaTerritorialResidencia": this.form.value.zonaResidencia,
+          "incapacidad": this.form.value.incapacidad,
+          "codPaisOrigen": "170",
+          "servicios": {
+            // "consultas": this.createConsultas(),
+            // "procedimientos": this.createProcedimientos(),
+            "otrosServicios": this.createOtrosServicios()
+          }
+          }
+        ]
+      };
+    this.json.push(newValue);
+  }
+
   convertToJsonFile(){
-    const jsonString = JSON.stringify(this.json, null, 2);
+    const jsonString = JSON.stringify(this.json[0], null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
     return blob
   }
@@ -114,6 +146,18 @@ export class RipsJsonComponent implements OnInit {
   onReset(): void {
     this.submitted = false;
     this.form.reset();
+  }
+
+  limpiarFormulario(): void {
+    this.onReset();
+    this.arrayConsultas = [];
+    this.arrayProcedimientos = [];
+    this.arrayOtrosServicios = [];
+    this.tConsultas = 0;
+    this.tProcedimientos = 0;
+    this.tServicios = 0;
+    this.totalFactura = 0;
+    window.location.reload();
   }
 
   createJsonTransaccion(): void {
@@ -260,21 +304,21 @@ export class RipsJsonComponent implements OnInit {
     this.arrayOtrosServicios.map((dato) => {
       const newValue = {
         "codPrestador": this.datosClinica[0].codigo,
-        "numAutorizacion": "null",
-        "idMIPRES": "null",
+        "numAutorizacion": null,
+        "idMIPRES": null,
         "fechaSuministroTecnologia": dato.fecha + " " + dato.hora,
         "tipoOS": "01",
         "codTecnologiaSalud": dato.tecnologia,
         "nomTecnologiaSalud": dato.nomTecnologia,
-        "cantidadOS": dato.cantidad.toString(),
+        "cantidadOS": parseInt(dato.cantidad),
         "tipoDocumentoIdentificacion": dato.tipoDocumentoMedico,
         "numDocumentoIdentificacion": dato.documentoMedico,
-        "vrUnitOS": dato.valorunit.toString(),
-        "vrServicio": dato.valor.toString(),
+        "vrUnitOS": dato.valorunit,
+        "vrServicio": dato.valor,
         "conceptoRecaudo": "05",
-        "valorPagoModerador": "0",
-        "numFEVPagoModerador": "null",
-        "consecutivo": (i++).toString()
+        "valorPagoModerador": 0,
+        "numFEVPagoModerador": null,
+        "consecutivo": i++
       }
       newArray.push(newValue);
     });
