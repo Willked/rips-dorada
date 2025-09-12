@@ -1,18 +1,15 @@
 {
-  "clinica":[
+  "clinica": [
     {
       "nombre": "AMBULANCIAS DORADA SAS",
       "nit": "901766207",
       "codigo": "173800333001"
     }
   ],
-  "servicios": [
-  ],
-  "consultas":[
-  ],
-  "diagnosticos":[
-  ],
-  "tecnologia":[
+  "servicios": [],
+  "consultas": [],
+  "diagnosticos": [],
+  "tecnologia": [
     {
       "codigo": "601T01",
       "nombre": "TRASLADO ASISTENCIAL BASICO TERRESTRE PRIMARIO"
@@ -34,7 +31,7 @@
       "nombre": "TRASLADO NEONATAL MEDICALIZADO"
     }
   ],
-  "personal":[
+  "personal": [
     {
       "tipoDocumento": "CC",
       "documento": "1056768448",
@@ -69,6 +66,20 @@
       "nombre": "KAREN GALVIS",
       "cargo": "AUXILIAR DE ENFERMERIA",
       "codigo": 5
+    },
+    {
+      "tipoDocumento": "CC",
+      "documento": "1053775840",
+      "nombre": "MANUEL JOSE DUSSAN ROJAS",
+      "cargo": "AUXILIAR DE ENFERMERIA",
+      "codigo": 6
+    },
+    {
+      "tipoDocumento": "CC",
+      "documento": "1054540727",
+      "nombre": "MARIA JOSE SAYAGO HERNANDEZ",
+      "cargo": "AUXILIAR DE ENFERMERIA",
+      "codigo": 7
     }
   ]
 }
