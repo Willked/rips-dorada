@@ -80,6 +80,13 @@
       "nombre": "MARIA JOSE SAYAGO HERNANDEZ",
       "cargo": "AUXILIAR DE ENFERMERIA",
       "codigo": 7
+    },
+    {
+      "tipoDocumento": "CC",
+      "documento": "1002691138",
+      "nombre": "CARLOS DAVID VEGA VARGAS",
+      "cargo": "AUXILIAR DE ENFERMERIA",
+      "codigo": 8
     }
   ]
 }
