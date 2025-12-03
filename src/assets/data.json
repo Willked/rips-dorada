@@ -34,6 +34,13 @@
   "personal": [
     {
       "tipoDocumento": "CC",
+      "documento": "1014286735",
+      "nombre": "DINEST BERNARDA SILVA RUIZ",
+      "cargo": "MEDICO",
+      "codigo": 1
+    },
+    {
+      "tipoDocumento": "CC",
       "documento": "1056768448",
       "nombre": "JORGE LUIS VELASQUEZ ZAPATA",
       "cargo": "AUXILIAR DE ENFERMERIA",
