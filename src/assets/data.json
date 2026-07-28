@@ -94,6 +94,13 @@
       "nombre": "CARLOS DAVID VEGA VARGAS",
       "cargo": "AUXILIAR DE ENFERMERIA",
       "codigo": 8
+    },
+    {
+      "tipoDocumento": "CC",
+      "documento": "1054567825",
+      "nombre": "ANDRES MARTINEZ",
+      "cargo": "AUXILIAR DE ENFERMERIA",
+      "codigo": 9
     }
   ]
 }

@@ -18,6 +18,7 @@ export class RipsJsonComponent implements OnInit {
     tipoDocumento: new FormControl(''),
     numDocumento: new FormControl(''),
     tipoUsuario: new FormControl(''),
+    codigoSIRAS: new FormControl(''),
     fecNacimiento: new FormControl(''),
     sexo: new FormControl(''),
     municipio: new FormControl(''),
@@ -26,7 +27,7 @@ export class RipsJsonComponent implements OnInit {
   });
   submitted = false;
   now = new Date();
-  json:any[] = [];
+  json: any[] = [];
   ciudades: any[] = [];
   datosClinica: any[] = [];
   nombreClinica = "";
@@ -54,12 +55,18 @@ export class RipsJsonComponent implements OnInit {
       tipoDocumento: ['CC', []],
       numDocumento: ['', [Validators.required]],
       tipoUsuario: ['10', []],
+      codigoSIRAS: ['', []],
       fecNacimiento: ['', [Validators.required]],
       sexo: ['M', []],
       municipio: ['17380', []],
       zonaResidencia: ['02', []],
       incapacidad: ['NO', []],
     });
+    this.actualizarValidacionCodigoSIRAS(this.form.value.tipoUsuario);
+    this.form.get('tipoUsuario')?.valueChanges.subscribe((tipoUsuario) => {
+      this.actualizarValidacionCodigoSIRAS(tipoUsuario);
+    });
+
     this.ciudadesService.getData().subscribe(data => {
       this.ciudades = data;
     });
@@ -74,17 +81,30 @@ export class RipsJsonComponent implements OnInit {
     return this.form.controls;
   }
 
+  actualizarValidacionCodigoSIRAS(tipoUsuario: string): void {
+    const codigoSIRAS = this.form.get('codigoSIRAS');
+    if (!codigoSIRAS) {
+      return;
+    }
+    if (tipoUsuario === '10') {
+      codigoSIRAS.setValidators([Validators.required, Validators.pattern(/.*\S.*/)]);
+    } else {
+      codigoSIRAS.clearValidators();
+    }
+    codigoSIRAS.updateValueAndValidity();
+  }
+
   onSubmit(): void {
     this.json = [];
     this.submitted = true;
 
     if (this.form.invalid) {
       const firstInvalidControl: HTMLElement = Object.keys(this.form.controls)
-    .filter(key => this.form.controls[key].invalid)
-    .map(key => document.querySelector(`[formControlName="${key}"]`))
-    .find(control => !!control) as HTMLElement;
+        .filter(key => this.form.controls[key].invalid)
+        .map(key => document.querySelector(`[formControlName="${key}"]`))
+        .find(control => !!control) as HTMLElement;
 
-    firstInvalidControl?.focus();
+      firstInvalidControl?.focus();
       return;
     }
 
@@ -96,15 +116,15 @@ export class RipsJsonComponent implements OnInit {
     this.downloadRequestObject();
   }
 
-  temporaryMethode(): void{
+  temporaryMethode(): void {
     this.numeroFactura = this.form.value.numFactura;
     const newValue = {
-        "numDocumentoIdObligado": this.datosClinica[0].nit,
-        "numFactura": this.form.value.numFactura,
-        "tipoNota": this.form.value.tipoNota != "null" ? this.form.value.tipoNota : null,
-        "numNota": this.form.value.numNota != "" ? this.form.value.numNota : null,
-        "usuarios": [
-          {
+      "numDocumentoIdObligado": this.datosClinica[0].nit,
+      "numFactura": this.form.value.numFactura,
+      "tipoNota": this.form.value.tipoNota != "null" ? this.form.value.tipoNota : null,
+      "numNota": this.form.value.numNota != "" ? this.form.value.numNota : null,
+      "usuarios": [
+        {
           "tipoDocumentoIdentificacion": this.form.value.tipoDocumento,
           "numDocumentoIdentificacion": this.form.value.numDocumento,
           "consecutivo": 1,
@@ -116,24 +136,25 @@ export class RipsJsonComponent implements OnInit {
           "codZonaTerritorialResidencia": this.form.value.zonaResidencia,
           "incapacidad": this.form.value.incapacidad,
           "codPaisOrigen": "170",
+          "registroSIRAS": this.form.value.tipoUsuario === '10' ? this.form.value.codigoSIRAS : null,
           "servicios": {
             // "consultas": this.createConsultas(),
             // "procedimientos": this.createProcedimientos(),
             "otrosServicios": this.createOtrosServicios()
           }
-          }
-        ]
-      };
+        }
+      ]
+    };
     this.json.push(newValue);
   }
 
-  convertToJsonFile(){
+  convertToJsonFile() {
     const jsonString = JSON.stringify(this.json[0], null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
     return blob
   }
 
-  downloadRequestObject(){
+  downloadRequestObject() {
     const blob = this.convertToJsonFile();
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -163,17 +184,17 @@ export class RipsJsonComponent implements OnInit {
   createJsonTransaccion(): void {
     this.numeroFactura = this.form.value.numFactura;
     const newValue = {
-        "numDocumentoIdObligado": this.datosClinica[0].nit,
-        "numFactura": this.form.value.numFactura,
-        "tipoNota": this.form.value.tipoNota,
-        "numNota": this.form.value.numNota,
-      };
+      "numDocumentoIdObligado": this.datosClinica[0].nit,
+      "numFactura": this.form.value.numFactura,
+      "tipoNota": this.form.value.tipoNota,
+      "numNota": this.form.value.numNota,
+    };
     this.json.push(newValue);
   }
 
   createUsersJson(): void {
     const newValue = [
-        {
+      {
         "tipoDocumentoIdentificacion": this.form.value.tipoDocumento,
         "numDocumentoIdentificacion": this.form.value.numDocumento,
         "tipoUsuario": this.form.value.tipoUsuario,
@@ -185,34 +206,34 @@ export class RipsJsonComponent implements OnInit {
         "incapacidad": this.form.value.incapacidad,
         "codPaisOrigen": "170",
         "consecutivo": "1"
-        }
-      ];
+      }
+    ];
     this.json.push("usuarios", newValue);
   }
 
-  getConsultas(event:any): void {
+  getConsultas(event: any): void {
     this.arrayConsultas = event;
   }
 
-  getSubtotalConsultas(event:any): void {
+  getSubtotalConsultas(event: any): void {
     this.tConsultas = Number(event);
     this.sumar();
   }
 
-  getProcedimientos(event:any): void {
+  getProcedimientos(event: any): void {
     this.arrayProcedimientos = event;
   }
 
-  getSubtotalProcedimientos(event:any): void {
+  getSubtotalProcedimientos(event: any): void {
     this.tProcedimientos = Number(event);
     this.sumar();
   }
 
-  getOtrosServicios(event:any): void {
+  getOtrosServicios(event: any): void {
     this.arrayOtrosServicios = event;
   }
 
-  getSubtotalServicios(event:any): void {
+  getSubtotalServicios(event: any): void {
     this.tServicios = Number(event);
     this.sumar();
   }
@@ -230,12 +251,12 @@ export class RipsJsonComponent implements OnInit {
       // "hospitalizacion": [],
       // "recienNacidos": [],
       "otrosServicios": this.createOtrosServicios()
-      }
+    }
     this.json.push("servicios", newValue);
   }
 
   createConsultas(): any[] {
-    let newArray:any[] = [];
+    let newArray: any[] = [];
     let i = 1;
     this.arrayConsultas.map((consulta) => {
       const newValue = {
@@ -267,7 +288,7 @@ export class RipsJsonComponent implements OnInit {
   }
 
   createProcedimientos(): any[] {
-    let newArray:any[] = [];
+    let newArray: any[] = [];
     let i = 1;
     this.arrayProcedimientos.map((dato) => {
       const newValue = {
@@ -299,7 +320,7 @@ export class RipsJsonComponent implements OnInit {
   }
 
   createOtrosServicios(): any[] {
-    let newArray:any[] = [];
+    let newArray: any[] = [];
     let i = 1;
     this.arrayOtrosServicios.map((dato) => {
       const newValue = {
