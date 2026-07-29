@@ -101,6 +101,13 @@
       "nombre": "ANDRES MARTINEZ",
       "cargo": "AUXILIAR DE ENFERMERIA",
       "codigo": 9
+    },
+    {
+      "tipoDocumento": "CC",
+      "documento": "1007449724",
+      "nombre": "KENLLY LIZETH ALMANZA RAMIREZ",
+      "cargo": "AUXILIAR DE ENFERMERIA",
+      "codigo": 10
     }
   ]
 }
